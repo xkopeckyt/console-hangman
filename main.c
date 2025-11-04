@@ -2,16 +2,15 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "game.h"
 #define DEBUG
 #define MAX_WORD_SIZE 256
 
 const char *PATH = "../data/words_alpha.txt";
 
-unsigned long get_random_index(){
-    unsigned long index = (unsigned long)rand();
-    index |= (unsigned long)rand();
-    index <<= 15;
+unsigned long get_random_long(){
+    unsigned long index = (unsigned long)rand() << 30;
+    index |= (unsigned long)rand() << 15;
     index |= (unsigned long)rand();
 
     return index;
@@ -33,7 +32,7 @@ size_t choose_word(char* word){
     }
     rewind(fptr);
 
-    unsigned long index = get_random_index() % (unsigned long) size;
+    unsigned long index = get_random_long() % (unsigned long) size;
 
     if(fseek(fptr, (long)index, SEEK_SET) != 0){
         fclose(fptr);
@@ -57,9 +56,8 @@ size_t choose_word(char* word){
     if(ptr == NULL){
         return 0;
     }
-    size_t length = strlen(word);
-    word[length - 2] = '\0'; // trim newline at the end
-    return length - 2;
+    word[strlen(word) - 2] = '\0'; // trim newline at the end
+    return strlen(word);
 }
 
 int main(int argc, char *argv[]) {
@@ -75,9 +73,10 @@ int main(int argc, char *argv[]) {
         perror("Error when selecting a word!\n");
         return 1;
     }
+
     #ifdef DEBUG
         printf("\nSELECTED WORD: %s, LENGTH: %ld\n\n", word, length);
     #endif
-    free(word);
+    play(word, length);
     return 0;
 }
