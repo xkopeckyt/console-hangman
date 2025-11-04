@@ -37,6 +37,7 @@ void print_guessed_letters(struct game* game){
 }
 
 void print_round(struct game* game) {
+    printf("\n%s", hangman_states[game->remaining_guesses]);
     print_word_status(game);
     print_guessed_letters(game);
     print_remaining(game);
