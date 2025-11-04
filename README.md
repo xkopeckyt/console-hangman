@@ -68,3 +68,7 @@ You can modify these values in the source code:
 ## Notes
 
 This is a work in progress. The dictionary file path is relative to the executable location, so you may need to adjust it depending on where you run the program.
+
+## Credits
+
+The word dictionary (`data/words_alpha.txt`) is sourced from [dwyl/english-words](https://github.com/dwyl/english-words/blob/master/words_alpha.txt) on GitHub.
