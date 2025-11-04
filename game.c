@@ -12,26 +12,39 @@ bool guessed_before(uint32_t guessed, char input){
     return (guessed & (bit << shift));
 }
 
+bool is_input_valid(struct game* game, char input){
+    int result = true;
+    if(input == '\n' || input == EOF){
+        printf("\nPlease enter a character!\n");
+        result = false;
+    }
+    else if(input < 97 || input > 122){
+        printf("\nInvalid character!\n");
+        result = false;
+    }
+    else if(guessed_before(game->guessed_letters, input)) {
+        printf("\nYou have already guessed this letter!\n");
+        print_guessed_letters(game);
+        result = false;
+    }
+    printf("%s\n", splitter);
+    return result;
+}
+
 char guess_input (struct game* game){
     while(true){
         printf("Guess:\n");
         fflush(stdout);
-        char input;
-        if((scanf(" %1c", &input) != 1)) return 0;
+        char input = (char)getchar();
+        int c = getchar();
+        if (c != '\n' && c != EOF){
+            while (c != '\n' && c != EOF) c = getchar();
+            printf("Please input only a single character!\n");
+            printf("%s\n", splitter);
+            continue;
+        }
         input = (char)tolower(input);
-        if(input < 97 || input > 122){
-            printf("Please input a valid character!\n");
-            char next;
-            while ((next = (char)getchar()) != '\n' && next != EOF);
-            continue;
-        }
-
-        if(guessed_before(game->guessed_letters, input)) {
-            printf("You have already guessed this letter.\n");
-            continue;
-        }
-
-        return input;
+        if(is_input_valid(game, input)) return input;
     }
 }
 
@@ -54,7 +67,6 @@ bool process_guess(struct game* game, char guess){
 }
 
 bool solved(struct game* game){
-
     return strcmp(game->word, game->guessed) == 0;
 }
 

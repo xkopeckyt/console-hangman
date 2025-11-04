@@ -16,7 +16,7 @@ void print_word_status(struct game* game){
 }
 
 void print_remaining(struct game* game){
-    printf("You have %d guesses left.\n", game->remaining_guesses);
+    printf("\nYou have %d guesses left.\n", game->remaining_guesses);
 }
 
 void print_guessed_letters(struct game* game){
@@ -25,7 +25,7 @@ void print_guessed_letters(struct game* game){
         return;
     }
     uint32_t bit = 1;
-    printf("Already guessed: \n");
+    printf("\nAlready guessed: \n");
     for(int i = 0; i < 32; i++){
         if(guessed & bit){
             char c = i + 65;
@@ -40,5 +40,5 @@ void print_round(struct game* game) {
     print_word_status(game);
     print_guessed_letters(game);
     print_remaining(game);
-    printf("*==========================*\n");
+    printf("%s\n", splitter);
 }
