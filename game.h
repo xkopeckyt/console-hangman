@@ -10,6 +10,7 @@ struct game {
     char* guessed;
     size_t length;
     int remaining_guesses;
+    uint32_t guessed_letters;
 };
 
 int play(char* word, size_t length);

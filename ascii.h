@@ -19,7 +19,7 @@
                        "|                            |\n"
                        "------------------------------\n";*/
 
-void print_guesses(struct game* game);
+void print_round(struct game* game);
 
 
 #endif //CONSOLE_HANGMAN_ASCII_H

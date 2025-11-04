@@ -4,6 +4,7 @@
 #include <string.h>
 #include "game.h"
 
+//#define DEBUG
 #define MAX_WORD_SIZE 256
 
 const char *PATH = "../data/words_alpha.txt";
@@ -73,9 +74,14 @@ int main(int argc, char *argv[]) {
         perror("Error when selecting a word!\n");
         return 1;
     }
+
     #ifdef DEBUG
         printf("\nSELECTED WORD: %s, LENGTH: %ld\n\n", word, length);
     #endif
-    play(word, length);
+
+    if(play(word, length) != 0){
+        perror("");
+        return 1;
+    }
     return 0;
 }
