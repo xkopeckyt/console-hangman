@@ -1,9 +1,9 @@
-#include "ascii.h"
-#include <stdint.h>
-#include <stdlib.h>
 
 #ifndef CONSOLE_HANGMAN_GAME_H
 #define CONSOLE_HANGMAN_GAME_H
+
+#include <stdint.h>
+#include <stdlib.h>
 
 struct game {
     char* word;

@@ -1,4 +1,5 @@
 #include "game.h"
+#include "ascii.h"
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -75,19 +76,23 @@ struct game* game_init(char* word, size_t length){
 
 int play(char* word, size_t length){
     struct game* game = game_init(word, length);
+    print_guesses(game);
     while(game->remaining_guesses > 0){
         char guess = guess_input(game);
         if(guess == 0) {
             destroy_game(game);
             return -1;
         }
-        if(!process_guess(game, guess)) game->remaining_guesses--;
+        bool retval = process_guess(game, guess);
+        print_guesses(game);
+        if(!retval) game->remaining_guesses--;
         else if(solved(game)) break;
     }
     if(game->remaining_guesses > 0){
         printf("\nYOU WON!\n\n");
     } else{
-        printf("\nYOU LOST!\n\n");
+        printf("\nYOU LOST!\n"
+               "The word was: %s\n", game->word);
     }
     destroy_game(game);
     return 0;
